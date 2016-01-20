@@ -435,7 +435,7 @@ module ⇒ where
     «idn»
       : ∀ ..{s ℓ₀}
       → {A : Magma {s} ℓ₀}
-      → Map 𝟙 (A ⇒ A)
+      → Map (𝟙 {s}) (A ⇒ A)
     «idn» = Δ.ʲ[ idn ]
 
     «cmp»
