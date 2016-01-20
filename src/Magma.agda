@@ -303,6 +303,17 @@ module Π where
       → Map (Π I A) (Π J B)
     Π[ f ▸ F ] = Π[ f ▸[ x ] F {x} ]
 
+    ⊢⊗
+      : ∀ ..{s ℓ₀ ℓ₁ ℓ₂}
+      → {I : Set ℓ₀}
+      → {A : I → Magma {s} ℓ₁}
+      → {B : I → Magma {s} ℓ₂}
+      → Map (Π I A ⊗ Π I B) (Π[ I ∋ i ] A i ⊗ B i)
+    ⊢⊗ = ι▸[ i ] ⟨ π[ i ] ⊗ π[ i ] ⟩
+
+open Π public
+  using (Π)
+
 module ⇒ where
   open Magma
   open Map
@@ -333,8 +344,8 @@ module ⇒ where
             ⟔ α⇒ ⟔ ⟨ β ⟔ ap ⊗ ap* G ⟔ inv◂ A ⟩
             ⟔ α⇐ ⟔ ap· ⟨«⊗»⟩ (idn , δ)
             ] ⟔ ⟨«,»⟩
-         ] ⟔ ⊗⇒Π
-       ] ⟔ ⊗⇒Π
+         ] ⟔ Π.⊢⊗
+       ] ⟔ Π.⊢⊗
     inv◂ (A ⇒ B) {_}{F}{G} =
       Π[ T.idn ▸
         Π[ T.idn ▸
@@ -405,7 +416,7 @@ module ⇒ where
       → {B : Magma {s} ℓ₂}
       → Map ((X ⇒ A) ⊗ (X ⇒ B)) (X ⇒ A ⊗ B)
     ap· ⟨«,»⟩ (F , G) = ⟨ F , G ⟩
-    ap* ⟨«,»⟩ = Π[ T.idn ▸ Π[ T.idn ▸ ⟨«,»⟩ ] ⟔ ⊗⇒Π ] ⟔ ⊗⇒Π
+    ap* ⟨«,»⟩ = Π[ T.idn ▸ Π[ T.idn ▸ ⟨«,»⟩ ] ⟔ Π.⊢⊗ ] ⟔ Π.⊢⊗
 
     «fst»
       : ∀ ..{s ℓ₀ ℓ₁ ℓ₂}
@@ -434,10 +445,5 @@ module ⇒ where
       → Map ((X ⇒ A) ⊗ (Y ⇒ B)) (X ⊗ Y ⇒ A ⊗ B)
     ⟨«⊗»⟩ = ⟨«,»⟩ ⟔ ⟨ «fst» ⊗ «snd» ⟩
 
-    ⊗⇒Π
-      : ∀ {s ℓ₀ ℓ₁ ℓ₂}
-      → {I : Set ℓ₀}
-      → {A : I → Magma {s} ℓ₁}
-      → {B : I → Magma {s} ℓ₂}
-      → Map (Π I A ⊗ Π I B) (Π[ I ∋ i ] A i ⊗ B i)
-    ⊗⇒Π = ι▸[ i ] ⟨ π[ i ] ⊗ π[ i ] ⟩
+open ⇒ public
+  using (_⇒_)
