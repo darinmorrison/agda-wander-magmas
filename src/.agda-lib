@@ -1,0 +1,4 @@
+name: wander-magmas
+include:
+  .
+  ../modules/agda-prelude/src
