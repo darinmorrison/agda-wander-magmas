@@ -128,9 +128,9 @@ mutual
 
   _⊗_
     : ∀ ..{s ℓ₀ ℓ₁}
-    → Magma {s} (ℓ₀)
-    → Magma {s} (ℓ₁)
-    → Magma {s} (ℓ₀ ⊔ ℓ₁)
+    → Magma {s} ℓ₀
+    → Magma {s} ℓ₁
+    → Magma {s} _
   Magma.obj  (A ⊗ B) =
     obj∞ A T.⊗ obj∞ B
   Magma.hom  (A ⊗ B) (a₀ , b₀) (a₁ , b₁) =
@@ -147,9 +147,9 @@ mutual
     → {X : Magma {s} ℓ₀}
     → {A : Magma {s} ℓ₁}
     → {B : Magma {s} ℓ₂}
-    → Map {ℓ₀ = ℓ₀}{ℓ₁ = ℓ₁} X A
-    → Map {ℓ₀ = ℓ₀}{ℓ₁ = ℓ₂} X B
-    → Map {ℓ₀ = ℓ₀}{ℓ₁ = ℓ₁ ⊔ ℓ₂} X (A ⊗ B)
+    → Map X A
+    → Map X B
+    → Map X (A ⊗ B)
   Map.ap· ⟨ F , G ⟩ = T.⟨ ap·∞ F , ap·∞ G ⟩
   Map.ap* ⟨ F , G ⟩ =   ⟨ ap*∞ F , ap*∞ G ⟩
 
@@ -251,7 +251,7 @@ module Π where
     Π
       : ∀ ..{s ℓ₀ ℓ₁}
       → (I : Set ℓ₀) (A : I → Magma {s} ℓ₁)
-      → Magma {s} (ℓ₀ ⊔ ℓ₁)
+      → Magma {s} _
     obj  (Π I A) = ∀ i → obj (A i)
     hom  (Π I A) φ ψ = Π I λ i → hom (A i) (φ i) (ψ i)
     idn◂ (Π I A) = ι▸[ i ] idn◂ (A i)
