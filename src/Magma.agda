@@ -371,6 +371,16 @@ module ⇒ where
     ap· λ⇑[ F ] = apλ F
     ap* λ⇑[ F ] = ι▸[ _ ] ι▸[ _ ] idn ⟔ λ⇑[ ap* F ]
 
+    λ⇓[_]
+      : ∀ {s ℓ₀ ℓ₁ ℓ₂}
+      → {A : Magma {s} ℓ₀}
+      → {B : Magma {s} ℓ₁}
+      → {C : Magma {s} ℓ₂}
+      → Map A (B ⇒ C)
+      → Map (A ⊗ B) C
+    ap· λ⇓[ F ] = T.λ⇓ (ap· T.⟔ ap· F)
+    ap* λ⇓[ F ] = λ⇓[ π[ _ ] ⟔ π[ _ ] ⟔ ap* F ]
+
     ap
       : ∀ {s ℓ₀ ℓ₁}
       → {A : Magma {s} ℓ₀}
