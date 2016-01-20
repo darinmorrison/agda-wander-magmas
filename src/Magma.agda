@@ -312,31 +312,32 @@ module ⇒ where
     obj  (A ⇒ B) =
       Map A B
     hom  (A ⇒ B) F G =
-      Π[ obj∞ A ∋ x ]
-      Π[ obj∞ A ∋ y ]
+      Π[ obj A ∋ x ]
+      Π[ obj A ∋ y ]
       hom A x y ⇒ hom B (ap· F x) (ap· G y)
     idn◂ (A ⇒ B) {a = F} =
       ι▸[ _ ] ι▸[ _ ] Δ[ ap* F ]
     cmp◂ (A ⇒ B) {b = G} =
       Π[ T.idn ▸
-      Π[ T.idn ▸
-        λ⇑[ cmp◂ B
-          ⟔ β  ⟔ ⟨ idn ⊗ cmp◂ B ⟩
-          ⟔ α⇒ ⟔ ⟨ β ⟔ ap ⊗ ap* G ⟔ inv◂ A ⟩
-          ⟔ α⇐ ⟔ ap· ⟨«⊗»⟩ (idn , δ)
-          ] ⟔ ⟨«,»⟩
-       ] ⟔ ⊗⇒Π
+        Π[ T.idn ▸
+          λ⇑[ cmp◂ B
+            ⟔ β  ⟔ ⟨ idn ⊗ cmp◂ B ⟩
+            ⟔ α⇒ ⟔ ⟨ β ⟔ ap ⊗ ap* G ⟔ inv◂ A ⟩
+            ⟔ α⇐ ⟔ ap· ⟨«⊗»⟩ (idn , δ)
+            ] ⟔ ⟨«,»⟩
+         ] ⟔ ⊗⇒Π
        ] ⟔ ⊗⇒Π
     inv◂ (A ⇒ B) {_}{F}{G} =
       Π[ T.idn ▸
-      Π[ T.idn ▸
-        λ⇑[ inv◂ B
-          ⟔ cmp◂ B
-          ⟔ β  ⟔ ⟨ cmp◂ B ⊗ idn ⟩
-          ⟔ α⇐ ⟔ ⟨ ap ⊗ ⟨ ap* F , ap* G ⟩ ⟩
-          ⟔ α⇐ ⟔ ⟨ idn ⊗ ⟨ idn , inv◂ A ⟩ ⟩
+        Π[ T.idn ▸
+          λ⇑[ inv◂ B
+            ⟔ cmp◂ B
+            ⟔ β  ⟔ ⟨ cmp◂ B ⊗ idn ⟩
+            ⟔ α⇐ ⟔ ⟨ ap ⊗ ⟨ ap* F , ap* G ⟩ ⟩
+            ⟔ α⇐ ⟔ ⟨ idn ⊗ ⟨ idn , inv◂ A ⟩ ⟩
+            ]
           ]
-        ] ]
+        ]
 
     ⟨_⇒_⟩
       : ∀ {s ℓ₀ ℓ₁ ℓ₂ ℓ₃}
@@ -356,7 +357,7 @@ module ⇒ where
       → {B : Magma {s} ℓ₁}
       → {C : Magma {s} ℓ₂}
       → Map (A ⊗ B) C
-      → (a : obj∞ A)
+      → (a : obj A)
       → Map B C
     ap· (apλ F a) = T.λ⇑ (ap· F) a
     ap* (apλ {A = A} F a) = apλ (ap* F) (ap· (idn◂ A) *)
