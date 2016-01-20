@@ -424,8 +424,7 @@ module ⇒ where
       → {B : Magma {s} ℓ₁}
       → {R : Magma {s} ℓ₂}
       → Map (A ⇒ R) (A ⊗ B ⇒ R)
-    ap· «fst» K = K ⟔ fst
-    ap* «fst» = Π[ T.fst ▸ Π[ T.fst ▸ «fst» ] ]
+    «fst» = ⟨ fst ⇒ idn ⟩
 
     «snd»
       : ∀ ..{s ℓ₀ ℓ₁ ℓ₂}
@@ -433,8 +432,7 @@ module ⇒ where
       → {B : Magma {s} ℓ₁}
       → {R : Magma {s} ℓ₂}
       → Map (B ⇒ R) (A ⊗ B ⇒ R)
-    ap· «snd» K = K ⟔ snd
-    ap* «snd» = Π[ T.snd ▸ Π[ T.snd ▸ «snd» ] ]
+    «snd» = ⟨ snd ⇒ idn ⟩
 
     ⟨«⊗»⟩
       : ∀ ..{s ℓ₀ ℓ₁ ℓ₂ ℓ₃}
