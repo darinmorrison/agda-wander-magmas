@@ -30,7 +30,7 @@ private
       using (_⟓_)
       using (idn)
       using (ap)
-open T.𝟙
+open T.𝟙↑
   using (*)
 open T.⊗
   using (_,_)
