@@ -189,19 +189,59 @@ mutual
     → Map ((A ⊗ B) ⊗ (C ⊗ D)) ((A ⊗ C) ⊗ (B ⊗ D))
   int = ⟨ ⟨ fst ⊗ fst ⟩ , ⟨ snd ⊗ snd ⟩ ⟩
 
-open Magma
-open Map
+module Δ where
+  open Magma
+  open Map
 
-Δ[_]
-  : ∀ {s ℓ₀ ℓ₁}
-  → {X : Magma {s} ℓ₀}
-  → {A : Magma {s} ℓ₁}
-  → (a : obj A)
-  → Map X A
-ap· Δ[ a ] = T.Δ.ʲ[ a ]
-ap* (Δ[_] {A = A} a) = Δ[ ap· (idn◂ A) * ]
+  ʲ[_]
+    : ∀ {s ℓ₀ ℓ₁}
+    → {X : Magma {s} ℓ₀}
+    → {A : Magma {s} ℓ₁}
+    → (a : obj A)
+    → Map X A
+  ap· ʲ[ a ] = T.Δ.ʲ[ a ]
+  ap* (ʲ[_] {A = A} a) = ʲ[ ap· (idn◂ A) * ]
+
+module ⊗ where
+  open Magma
+  open Map
+
+  δ
+    : ∀ {s ℓ}
+    → {A : Magma {s} ℓ}
+    → Map A (A ⊗ A)
+  δ = ⟨ idn , idn ⟩
+
+  α⇒
+    : ∀ {s ℓ₀ ℓ₁ ℓ₂}
+    → {A : Magma {s} ℓ₀}
+    → {B : Magma {s} ℓ₁}
+    → {C : Magma {s} ℓ₂}
+    → Map ((A ⊗ B) ⊗ C) (A ⊗ (B ⊗ C))
+  ap· α⇒ = T.⊗.α⇒
+  ap* α⇒ = α⇒
+
+  α⇐
+    : ∀ {s ℓ₀ ℓ₁ ℓ₂}
+    → {A : Magma {s} ℓ₀}
+    → {B : Magma {s} ℓ₁}
+    → {C : Magma {s} ℓ₂}
+    → Map (A ⊗ (B ⊗ C)) ((A ⊗ B) ⊗ C)
+  ap· α⇐ = T.⊗.α⇐
+  ap* α⇐ = α⇐
+
+  β
+    : ∀ {s ℓ₀ ℓ₁}
+    → {A : Magma {s} ℓ₀}
+    → {B : Magma {s} ℓ₁}
+    → Map (A ⊗ B) (B ⊗ A)
+  ap· β = T.⊗.β
+  ap* β = β
 
 module Π where
+  open Magma
+  open Map
+
   infix 0 Π
   infix 0 ι
   infix 0 π
@@ -263,42 +303,10 @@ module Π where
       → Map (Π I A) (Π J B)
     Π[ f ▸ F ] = Π[ f ▸[ x ] F {x} ]
 
-open Π public
-  using (Π)
-
-δ
-  : ∀ {s ℓ}
-  → {A : Magma {s} ℓ}
-  → Map A (A ⊗ A)
-δ = ⟨ idn , idn ⟩
-
-α⇒
-  : ∀ {s ℓ₀ ℓ₁ ℓ₂}
-  → {A : Magma {s} ℓ₀}
-  → {B : Magma {s} ℓ₁}
-  → {C : Magma {s} ℓ₂}
-  → Map ((A ⊗ B) ⊗ C) (A ⊗ (B ⊗ C))
-ap· α⇒ = T.⊗.α⇒
-ap* α⇒ = α⇒
-
-α⇐
-  : ∀ {s ℓ₀ ℓ₁ ℓ₂}
-  → {A : Magma {s} ℓ₀}
-  → {B : Magma {s} ℓ₁}
-  → {C : Magma {s} ℓ₂}
-  → Map (A ⊗ (B ⊗ C)) ((A ⊗ B) ⊗ C)
-ap· α⇐ = T.⊗.α⇐
-ap* α⇐ = α⇐
-
-β
-  : ∀ {s ℓ₀ ℓ₁}
-  → {A : Magma {s} ℓ₀}
-  → {B : Magma {s} ℓ₁}
-  → Map (A ⊗ B) (B ⊗ A)
-ap· β = T.⊗.β
-ap* β = β
-
 module ⇒ where
+  open Magma
+  open Map
+  open ⊗
   open Π
 
   infix 1 _⇒_
@@ -316,7 +324,7 @@ module ⇒ where
       Π[ obj A ∋ y ]
       hom A x y ⇒ hom B (ap· F x) (ap· G y)
     idn◂ (A ⇒ B) {a = F} =
-      ι▸[ _ ] ι▸[ _ ] Δ[ ap* F ]
+      ι▸[ _ ] ι▸[ _ ] Δ.ʲ[ ap* F ]
     cmp◂ (A ⇒ B) {b = G} =
       Π[ T.idn ▸
         Π[ T.idn ▸
@@ -433,6 +441,3 @@ module ⇒ where
       → {B : I → Magma {s} ℓ₂}
       → Map (Π I A ⊗ Π I B) (Π[ I ∋ i ] A i ⊗ B i)
     ⊗⇒Π = ι▸[ i ] ⟨ π[ i ] ⊗ π[ i ] ⟩
-
-open ⇒ public
-  using (_⇒_)
