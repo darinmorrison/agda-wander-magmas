@@ -8,4 +8,6 @@ A familial coinductive-recursive encoding of Penon-style ∞-magmas
 
 * [Monoidal globular categories as a natural environment for the theory of weak n-categories](http://www.sciencedirect.com/science/article/pii/S0001870898917248)
 
+* [Continuous functions on final coalgebras](https://personal.cis.strath.ac.uk/neil.ghani/papers/ghani-mfps09.pdf)
+
 * [Wander types - A formalization of coinduction-recursion](http://www.cs.nott.ac.uk/~pszvc/publications/wander_types.pdf)
