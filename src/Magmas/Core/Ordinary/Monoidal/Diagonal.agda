@@ -12,9 +12,9 @@ module Δ where
   open Map
 
   ʲ[_]
-    : ∀ ..{s ℓ₀ ℓ₁}
-    → {X : Magma {s} ℓ₀}
-    → {A : Magma {s} ℓ₁}
+    : ∀ ..{s}{n r}..{ℓ₀ ℓ₁}
+    → {X : Magma {s} n r ℓ₀}
+    → {A : Magma {s} n r ℓ₁}
     → (a : obj A)
     → Map X A
   ap· ʲ[ a ] = T.Δ.ʲ[ a ]

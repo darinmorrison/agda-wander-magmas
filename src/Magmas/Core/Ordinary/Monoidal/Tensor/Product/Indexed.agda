@@ -17,38 +17,38 @@ module Π where
 
   mutual
     Π
-      : ∀ ..{s ℓ₀ ℓ₁}
-      → (I : Set ℓ₀) (A : I → Magma {s} ℓ₁)
-      → Magma {s} _
+      : ∀ ..{s}{n r}..{ℓ₀ ℓ₁}
+      → (I : Set ℓ₀) (A : I → Magma {s} n r ℓ₁)
+      → Magma {s} n r _
     obj  (Π I A) = ∀ i → obj (A i)
     hom  (Π I A) φ ψ = Π I λ i → hom (A i) (φ i) (ψ i)
     idn◂ (Π I A) = ι[ i ]↦ idn◂ (A i)
     cmp◂ (Π I A) = ι[ i ]↦ cmp◂ (A i) ⟔ ⊗.⟨ π[ i ] ⊗ π[ i ] ⟩
     inv◂ (Π I A) = ι[ i ]↦ inv◂ (A i) ⟔ π[ i ]
 
-    ι : ∀ ..{s ℓ₀ ℓ₁ ℓ₂}
-      → {X : Magma {s} ℓ₀}
+    ι : ∀ ..{s}{n r}..{ℓ₀ ℓ₁ ℓ₂}
+      → {X : Magma {s} n r ℓ₀}
       → {I : Set ℓ₁}
-      → {A : I → Magma {s} ℓ₂}
+      → {A : I → Magma {s} n r ℓ₂}
       → (∀ i → Map X (A i))
       → Map X (Π I A)
     ap· (ι Ψ) x i = ap· (Ψ i) x
     ap* (ι Ψ) = ι λ i → ap* (Ψ i)
 
-    π : ∀ ..{s ℓ₀ ℓ₁}
+    π : ∀ ..{s}{n r}..{ℓ₀ ℓ₁}
       → {I : Set ℓ₀}
-      → {A : I → Magma {s} ℓ₁}
+      → {A : I → Magma {s} n r ℓ₁}
       → {i : I}
       → Map (Π I A) (A i)
     ap· π ψ = ψ _
     ap* π = π
 
   map
-    : ∀ ..{s ℓ₀ ℓ₁ ℓ₂ ℓ₃}
+    : ∀ ..{s}{n r}..{ℓ₀ ℓ₁ ℓ₂ ℓ₃}
     → {I : Set ℓ₀}
     → {J : Set ℓ₁}
-    → {A : I → Magma {s} ℓ₂}
-    → {B : J → Magma {s} ℓ₃}
+    → {A : I → Magma {s} n r ℓ₂}
+    → {B : J → Magma {s} n r ℓ₃}
     → (f : J → I)
     → (∀ j → Map (A (f j)) (B j))
     → Map (Π I A) (Π J B)
@@ -56,11 +56,11 @@ module Π where
   ap* (map f F) = map f (λ j → ap* (F j))
 
   [_▸_]
-    : ∀ ..{s ℓ₀ ℓ₁ ℓ₂ ℓ₃}
+    : ∀ ..{s}{n r}..{ℓ₀ ℓ₁ ℓ₂ ℓ₃}
     → {I : Set ℓ₀}
     → {J : Set ℓ₁}
-    → {A : I → Magma {s} ℓ₂}
-    → {B : J → Magma {s} ℓ₃}
+    → {A : I → Magma {s} n r ℓ₂}
+    → {B : J → Magma {s} n r ℓ₃}
     → (f : J → I)
     → (∀ {j} → Map (A (f j)) (B j))
     → Map (Π I A) (Π J B)
@@ -68,10 +68,10 @@ module Π where
 
   module ⊢ where
     ⊗
-      : ∀ ..{s ℓ₀ ℓ₁ ℓ₂}
+      : ∀ ..{s}{n r}..{ℓ₀ ℓ₁ ℓ₂}
       → {I : Set ℓ₀}
-      → {A : I → Magma {s} ℓ₁}
-      → {B : I → Magma {s} ℓ₂}
+      → {A : I → Magma {s} n r ℓ₁}
+      → {B : I → Magma {s} n r ℓ₂}
       → Map (Π I A ⊗ Π I B) ([ I ∋ i ] A i ⊗ B i)
     ⊗ = ι[ i ]↦ ⊗.⟨ π[ i ] ⊗ π[ i ] ⟩
 
